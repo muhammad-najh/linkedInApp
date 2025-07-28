@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostsController {
 
     private final PostsService postsService;
 
-    @PostMapping
+    @PostMapping("/core")
     public ResponseEntity<PostDto> createPost(@RequestBody PostCreateRequestDto postDto, HttpServletRequest httpServletRequest) {
         PostDto createdPost = postsService.createPost(postDto, 1L);
         return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
