@@ -1,5 +1,6 @@
 package com.skysoft.linkedin.connection_service.services.impl;
 
+import com.skysoft.linkedin.connection_service.auth.UserContextHolder;
 import com.skysoft.linkedin.connection_service.entity.PersonEntity;
 import com.skysoft.linkedin.connection_service.repositories.PersonRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,8 @@ public class ConnectionService {
 
     private final PersonRepository personRepository;
 
-    public List<PersonEntity> getFirstConnections(Long userId) {
+    public List<PersonEntity> getFirstConnections() {
+        Long userId = UserContextHolder.getCurrentUserId();
         log.info("Fetching first connections for userId: {}", userId);
         return personRepository.getFirstDegreeConnections(userId);
     }

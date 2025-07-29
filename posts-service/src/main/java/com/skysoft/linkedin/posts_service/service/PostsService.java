@@ -1,6 +1,5 @@
 package com.skysoft.linkedin.posts_service.service;
 
-import com.skysoft.linkedin.posts_service.auth.UserContextHolder;
 import com.skysoft.linkedin.posts_service.clients.ConnectionClient;
 import com.skysoft.linkedin.posts_service.dto.PostCreateRequestDto;
 import com.skysoft.linkedin.posts_service.dto.PostDto;
@@ -37,7 +36,7 @@ public class PostsService {
         log.debug("Retrieving post with ID: {}", postId);
         List<PersonDto> firstConnections = connectionClient.getFirstConnections();
         Post post = postsRepository.findById(postId).orElseThrow(() ->
-                new ResourceNotFoundException("Post not found with id: "+postId));
+                new ResourceNotFoundException("Post not found with id: " + postId));
         return modelMapper.map(post, PostDto.class);
     }
 
@@ -45,8 +44,8 @@ public class PostsService {
         List<Post> posts = postsRepository.findByUserId(userId);
 
         return posts
-            .stream()
-            .map((element) -> modelMapper.map(element, PostDto.class))
-            .collect(Collectors.toList());
+                .stream()
+                .map((element) -> modelMapper.map(element, PostDto.class))
+                .collect(Collectors.toList());
     }
 }

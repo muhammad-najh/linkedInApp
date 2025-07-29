@@ -1,5 +1,6 @@
 package com.skysoft.linkedin.connection_service.controllers;
 
+import com.skysoft.linkedin.connection_service.auth.UserContextHolder;
 import com.skysoft.linkedin.connection_service.entity.PersonEntity;
 import com.skysoft.linkedin.connection_service.services.impl.ConnectionService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class ConnectionController {
     private final ConnectionService connectionService;
 
     @GetMapping("/first-degree")
-    public ResponseEntity<List<PersonEntity>> getFirstConnections(@RequestHeader("x-user-id") Long userId) {
-        return ResponseEntity.ok(connectionService.getFirstConnections(userId));
+    public ResponseEntity<List<PersonEntity>> getFirstConnections() {
+        return ResponseEntity.ok(connectionService.getFirstConnections());
     }
 }
