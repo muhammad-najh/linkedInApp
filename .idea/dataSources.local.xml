@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="IU-241.18034.62">
+    <data-source name="couchbase@localhost" uuid="6e787db8-0419-406b-b276-ea94b1ae9dd0">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="COUCHBASE" />
+      <schema-mapping />
+    </data-source>
+    <data-source name="oracle" uuid="9bdb6532-1ca6-4f7c-8d24-27f8b4d52bb2">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="ORACLE" />
+      <user-name>Mohammed_najh</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="oracle" uuid="4c5357d6-533f-4268-8eec-38f2b9adbf65">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="ORACLE" />
+      <user-name>Mohammed_najh</user-name>
+      <schema-mapping />
+      <load-sources>user_and_system_sources</load-sources>
+    </data-source>
+  </component>
+</project>
