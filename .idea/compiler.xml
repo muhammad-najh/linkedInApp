@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="posts-service" />
-        <module name="connection-service" />
         <module name="user-service" />
         <module name="discovery-service" />
       </profile>
