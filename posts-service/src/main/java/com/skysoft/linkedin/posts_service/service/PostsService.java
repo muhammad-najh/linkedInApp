@@ -1,15 +1,19 @@
 package com.skysoft.linkedin.posts_service.service;
 
+import com.skysoft.linkedin.event.PostCreatedEvent;
+import com.skysoft.linkedin.posts_service.auth.UserContextHolder;
 import com.skysoft.linkedin.posts_service.clients.ConnectionClient;
+import com.skysoft.linkedin.posts_service.exception.ResourceNotFoundException;
 import com.skysoft.linkedin.posts_service.dto.PostCreateRequestDto;
 import com.skysoft.linkedin.posts_service.dto.PostDto;
 import com.skysoft.linkedin.posts_service.dto.connection.PersonDto;
 import com.skysoft.linkedin.posts_service.entity.Post;
-import com.skysoft.linkedin.posts_service.exception.ResourceNotFoundException;
 import com.skysoft.linkedin.posts_service.repository.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,17 +28,30 @@ public class PostsService {
     private final ModelMapper modelMapper;
     private final ConnectionClient connectionClient;
 
-    public PostDto createPost(PostCreateRequestDto postDto, Long userId) {
+    @Value("${kafka.topic.post-created-topic}")
+    private String postCreatedTopic;
+
+    private final KafkaTemplate<Long, PostCreatedEvent> kafkaTemplate;
+
+    public PostDto createPost(PostCreateRequestDto postDto) {
+        Long userId = UserContextHolder.getCurrentUserId();
         Post post = modelMapper.map(postDto, Post.class);
         post.setUserId(userId);
 
         Post savedPost = postsRepository.save(post);
+        PostCreatedEvent postCreatedEvent = new PostCreatedEvent();
+        postCreatedEvent.setContent(savedPost.getContent());
+        postCreatedEvent.setPostId(savedPost.getId());
+        postCreatedEvent.setCreatorId(savedPost.getUserId());
+
+        kafkaTemplate.send(postCreatedTopic,savedPost.getId(), postCreatedEvent);
+
         return modelMapper.map(savedPost, PostDto.class);
     }
 
     public PostDto getPostById(Long postId) {
         log.debug("Retrieving post with ID: {}", postId);
-        List<PersonDto> firstConnections = connectionClient.getFirstConnections();
+
         Post post = postsRepository.findById(postId).orElseThrow(() ->
                 new ResourceNotFoundException("Post not found with id: " + postId));
         return modelMapper.map(post, PostDto.class);

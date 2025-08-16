@@ -8,8 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="posts-service" />
+        <module name="connection-service" />
         <module name="user-service" />
         <module name="discovery-service" />
+        <module name="notification-service" />
       </profile>
       <profile name="Annotation profile for api-gateway" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -27,6 +29,7 @@
       <module name="api-gateway" options="-parameters" />
       <module name="connection-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="posts-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>

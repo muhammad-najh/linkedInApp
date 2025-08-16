@@ -1,4 +1,4 @@
-package com.skysoft.linkedin.posts_service;
+package com.skysoft.linkedin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

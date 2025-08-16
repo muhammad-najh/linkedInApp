@@ -1,0 +1,20 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9093
+    consumer:
+      group-id: ${spring.application.name}
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        spring.json:
+          trusted.packages: com.skysoft.linkedin.*
+        schema:
+          registry:
+            url: "http://127.0.0.1:8081"
+        specific:
+          avro:
+            reader: "true"
+
+kafka.topic:
+  post-created-topic: post-created-topic
+  post-liked-topic: post-liked-topic

@@ -1,0 +1,22 @@
+{
+  "name": "PostLikedEvent",
+  "namespace": "com.skysoft.linkedin.event",
+  "type": "record",
+  "fields": [
+    {
+      "name": "creatorId",
+      "type": "long",
+      "default": 0
+    },
+    {
+      "name": "likedByUserId",
+      "type": "long",
+      "default": 0
+    },
+    {
+      "name": "postId",
+      "type": "long",
+      "default": 0
+    }
+  ]
+}
